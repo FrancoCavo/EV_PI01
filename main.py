@@ -5,10 +5,10 @@ from urllib.parse import unquote
 app = FastAPI()
 
 #En local usamos la siguiente lectura de archivo:
-movies_funcion = pd.read_parquet('../EV_PI01\movies_funcion.parquet')
+#movies_funcion = pd.read_parquet('../EV_PI01\movies_funcion.parquet')
 
 #En Render usamos la siguiente:
-#movies_funcion = pd.read_parquet('movies_funcion.parquet')
+movies_funcion = pd.read_parquet('movies_funcion.parquet')
 
 #Diccioniario para usar en el Endpoint 2.
 dias_dicc = { 
