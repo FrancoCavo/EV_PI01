@@ -5,10 +5,10 @@ from urllib.parse import unquote
 app = FastAPI()
 
 #En local usamos la siguiente lectura de archivo:
-#movies_funcion = pd.read_parquet('../EV_PI01\movies_funcion.parquet')
+movies_funcion = pd.read_parquet('../EV_PI01\movies_funcion.parquet')
 
 #En Render usamos la siguiente:
-movies_funcion = pd.read_parquet('movies_funcion.parquet')
+#movies_funcion = pd.read_parquet('movies_funcion.parquet')
 
 #Diccioniario para usar en el Endpoint 2.
 dias_dicc = { 
@@ -36,14 +36,14 @@ def cantidad_filmaciones_dia(Dia:str):
 @app.get("/titulo/")
 def score_titulo(titulo_de_la_filmacion: str):
     # Filtrar las filas que coinciden con el titulo
-    filtro = movies_funcion[movies_funcion['title'] == titulo_de_la_filmacion]
-    print(filtro, titulo_de_la_filmacion)
+    titulo_de_la_filmacion = titulo_de_la_filmacion.lower()
+    filtro = movies_funcion[movies_funcion['title'].str.lower() == titulo_de_la_filmacion]
 
     # Verificar si el filtro no esta vacio
     if not filtro.empty:
         Titulo = filtro['title'].iloc[0]
         Year = filtro['year'].iloc[0]
         Popularity = filtro['popularity'].iloc[0]
-        return {"Titulo": Titulo, "Ano de lanzamiento": Year, 'Puntaje': Popularity}
+        return {"Titulo": Titulo, "Ano de lanzamiento": str(Year), 'Puntaje': str(Popularity)}
     else:
         return {"error": "No se encontro titulo"}
