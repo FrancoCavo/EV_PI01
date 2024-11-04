@@ -27,14 +27,14 @@ def cantidad_filmaciones_mes(Mes: int):
     lanzamientos_por_mes = len(movies_funcion[movies_funcion['month'] == Mes])
     #return print('En el mes', Mes,'hubo', lanzamientos_por_mes,'lanzamientos.') --> Esta opcion no la usamos, 
     # ya que el print sirve solo para retornar en la terminal.
-    return {"mes": Mes, "lanzamientos": lanzamientos_por_mes}
+    return (f'mes: {Mes}, lanzamientos: {lanzamientos_por_mes}')
 
 #Endpoint 2
 @app.get("/Dia/{Dia}")
 def cantidad_filmaciones_dia(Dia:str):
     Dia_traducido = dias_dicc[Dia.lower()]
     lanzamientos_por_dia = len(movies_funcion[movies_funcion['day'] == Dia_traducido])
-    return {"dia": Dia, "lanzamientos": lanzamientos_por_dia}
+    return (f'dia: {Dia}, lanzamientos: {lanzamientos_por_dia}')
 
 #Endpoint 3
 #@app.get("/titulo/{titulo_de_la_filmacion}")
@@ -49,9 +49,10 @@ def score_titulo(titulo_de_la_filmacion: str):
         Titulo = filtro['title'].iloc[0]
         Year = filtro['year'].iloc[0]
         Popularity = filtro['popularity'].iloc[0]
-        return {"Titulo": Titulo, "Ano de lanzamiento": str(Year), 'Puntaje': str(Popularity)}
+        #return {"Titulo": Titulo, "Ano de lanzamiento": str(Year), 'Puntaje': str(Popularity)}
+        return (f'Titulo: {Titulo}, Ano de lanzamiento: {Year}, Puntaje: {Popularity}')
     else:
-        return {"error": "No se encontro titulo"}
+        return ("error, no se encontro titulo")
 
 #Endpoint 4
 
@@ -74,6 +75,6 @@ def recomendacion( titulo: str ):
         for i in indices_similares:
             recomendacion = movies_modelo_recortado['title'].iloc[i]
             lista.append(recomendacion)
-        return (f'Recomendaciones: 1){lista[0]}, 2){lista[1]}, {lista[2]}, {lista[3]}, {lista[4]}')
+        return (f'Recomendaciones: 1) {lista[0]}, 2) {lista[1]}, 3) {lista[2]}, 4) {lista[3]}, 5){lista[4]}')
     else:
-        return {"error": "No se encontro titulo"}
+        return ("error, no se encontro titulo")
