@@ -39,10 +39,9 @@ def cantidad_filmaciones_mes(Mes:str):
 def cantidad_filmaciones_dia(Dia:str):
     Dia_traducido = dias_dicc[Dia.lower()]
     lanzamientos_por_dia = len(movies_funcion[movies_funcion['day'] == Dia_traducido])
-    return (f'dia: {Dia}, lanzamientos: {lanzamientos_por_dia}')
+    return (f'En el dia {Dia} se hicieron {lanzamientos_por_dia} cantidad de estrenos.')
 
 #Endpoint 3
-#@app.get("/titulo/{titulo_de_la_filmacion}")
 @app.get("/titulo/")
 def score_titulo(titulo_de_la_filmacion: str):
     # Filtrar las filas que coinciden con el titulo
@@ -55,7 +54,7 @@ def score_titulo(titulo_de_la_filmacion: str):
         Year = filtro['year'].iloc[0]
         Popularity = filtro['popularity'].iloc[0]
         #return {"Titulo": Titulo, "Ano de lanzamiento": str(Year), 'Puntaje': str(Popularity)}
-        return (f'Titulo: {Titulo}, Ano de lanzamiento: {Year}, Puntaje: {Popularity}')
+        return (f'La pelicula {Titulo}, fue estrenada en el año {Year} y tiene un puntaje de {Popularity}')
     else:
         return ("error, no se encontro titulo")
 
