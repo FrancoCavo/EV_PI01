@@ -39,7 +39,7 @@ def cantidad_filmaciones_mes(Mes:str):
 def cantidad_filmaciones_dia(Dia:str):
     Dia_traducido = dias_dicc[Dia.lower()]
     lanzamientos_por_dia = len(movies_funcion[movies_funcion['day'] == Dia_traducido])
-    return (f'En el dia {Dia} se hicieron {lanzamientos_por_dia} cantidad de estrenos.')
+    return (f'En el dia {Dia} se hicieron {lanzamientos_por_dia} estrenos.')
 
 #Endpoint 3
 @app.get("/titulo/")
