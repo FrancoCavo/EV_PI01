@@ -60,16 +60,20 @@ def score_titulo(titulo_de_la_filmacion: str):
 def recomendacion( titulo: str ):
     # Hacemos que al titulo no le influyan las mayusculas
     titulo = titulo.lower()
-    # Buscamos cual es el indice que le corresponde al titulo elegido para buscarlo en la matriz de similitud
-    indice = movies_modelo_recortado[movies_modelo_recortado['title'].str.lower() == titulo].index.values[0]
-    # Para el indice dado, encontramos cuales son los valores de similitud de coseno comparando con todas las peliculas
-    similitud = similitud_coseno_arr[indice]
-    # Ordenamos y truncamos para las primeras 5 mejores relaciones encontradas (sin contar la peli elegida) 
-    # y nos devuelven los indices
-    indices_similares = similitud.argsort()[::-1][1:6]
-    # Ahora tenemos que ver que titulos tienen esos indices encontrados
-    lista = []
-    for i in indices_similares:
-        recomendacion = movies_modelo_recortado['title'].iloc[i]
-        lista.append(recomendacion)
-    return (f'Recomendaciones: 1){lista[0]}, 2){lista[1]}, {lista[2]}, {lista[3]}, {lista[4]}')
+    # Aseguramos que el titulo se encuentre dentro del dataset o en caso contrario, nos de aviso
+    if not movies_modelo_recortado[movies_modelo_recortado['title'].str.lower() == titulo].empty:
+        # Buscamos cual es el indice que le corresponde al titulo elegido para buscarlo en la matriz de similitud
+        indice = movies_modelo_recortado[movies_modelo_recortado['title'].str.lower() == titulo].index.values[0]
+        # Para el indice dado, encontramos cuales son los valores de similitud de coseno comparando con todas las peliculas
+        similitud = similitud_coseno_arr[indice]
+        # Ordenamos y truncamos para las primeras 5 mejores relaciones encontradas (sin contar la peli elegida) 
+        # y nos devuelven los indices
+        indices_similares = similitud.argsort()[::-1][1:6]
+        # Ahora tenemos que ver que titulos tienen esos indices encontrados
+        lista = []
+        for i in indices_similares:
+            recomendacion = movies_modelo_recortado['title'].iloc[i]
+            lista.append(recomendacion)
+        return (f'Recomendaciones: 1){lista[0]}, 2){lista[1]}, {lista[2]}, {lista[3]}, {lista[4]}')
+    else:
+        return {"error": "No se encontro titulo"}
