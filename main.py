@@ -10,6 +10,12 @@ app = FastAPI()
 #En Render usamos la siguiente:
 movies_funcion = pd.read_parquet('movies_funcion.parquet')
 
+#Diccionario a usar en el Endpoint 1.
+mes_dicc = { 
+    'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5, 'junio': 6, 'julio': 7, 
+    'agosto': 8, 'septiembre': 9, 'octubre': 10, 'noviembre': 11, 'diciembre': 12 
+    }
+
 #Diccioniario para usar en el Endpoint 2.
 dias_dicc = { 
     'lunes': 'Monday', 'martes': 'Tuesday', 'miercoles': 'Wednesday', 'jueves': 'Thursday', 
@@ -23,11 +29,10 @@ movies_modelo_recortado = pd.read_parquet('movies_modelo_recortado.parquet')
 
 #Endpoint 1
 @app.get("/Mes/{Mes}")
-def cantidad_filmaciones_mes(Mes: int):
-    lanzamientos_por_mes = len(movies_funcion[movies_funcion['month'] == Mes])
-    #return print('En el mes', Mes,'hubo', lanzamientos_por_mes,'lanzamientos.') --> Esta opcion no la usamos, 
-    # ya que el print sirve solo para retornar en la terminal.
-    return (f'mes: {Mes}, lanzamientos: {lanzamientos_por_mes}')
+def cantidad_filmaciones_mes(Mes:str):
+    num_mes = mes_dicc[Mes.lower()]
+    lanzamientos_por_mes = len(movies_funcion[movies_funcion['month'] == num_mes])
+    return (f'En el mes de {Mes} se hicieron {lanzamientos_por_mes} lanzamientos')
 
 #Endpoint 2
 @app.get("/Dia/{Dia}")
@@ -75,6 +80,6 @@ def recomendacion( titulo: str ):
         for i in indices_similares:
             recomendacion = movies_modelo_recortado['title'].iloc[i]
             lista.append(recomendacion)
-        return (f'Recomendaciones: 1) {lista[0]}, 2) {lista[1]}, 3) {lista[2]}, 4) {lista[3]}, 5){lista[4]}')
+        return (f'Recomendaciones: 1) {lista[0]}, 2) {lista[1]}, 3) {lista[2]}, 4) {lista[3]}, 5) {lista[4]}')
     else:
         return ("error, no se encontro titulo")
