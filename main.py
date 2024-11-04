@@ -72,4 +72,4 @@ def recomendacion( titulo: str ):
     for i in indices_similares:
         recomendacion = movies_modelo_recortado['title'].iloc[i]
         lista.append(recomendacion)
-    return ('Recomendaciones: 1)'{lista[0]}, '2)'{lista[1]}, '3)'{lista[2]}, '4)'{lista[3]}, '5)'{lista[4]})
+    return (f'Recomendaciones: 1){lista[0]}, 2){lista[1]}, {lista[2]}, {lista[3]}, {lista[4]}')
