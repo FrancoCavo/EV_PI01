@@ -71,6 +71,16 @@ def votos_titulo( titulo_de_la_filmacion ):
     else:
         return ("Error, no se encontro titulo")
 
+#Endpoint 5
+@app.get("/nombre_actor/")
+def get_actor( nombre_actor: str ):
+    return ('Enpoint en desarrollo')
+
+#Endpoint 6
+@app.get("/nombre_actor/")
+def get_director( nombre_director: str ):
+    return ('Enpoint en desarrollo')
+
 #Sistema de recomendacion
 @app.get("/titulo_recomendacion/")
 def recomendacion( titulo: str ):
