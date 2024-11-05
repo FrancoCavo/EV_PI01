@@ -77,7 +77,7 @@ def get_actor( nombre_actor: str ):
     return ('Enpoint en desarrollo')
 
 #Endpoint 6
-@app.get("/nombre_actor/")
+@app.get("/nombre_director/")
 def get_director( nombre_director: str ):
     return ('Enpoint en desarrollo')
 
