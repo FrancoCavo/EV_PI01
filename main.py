@@ -47,7 +47,7 @@ def score_titulo(titulo_de_la_filmacion: str):
     # Verificar si el filtro no esta vacio
     if not filtro.empty:
         Titulo = filtro['title'].iloc[0]
-        Year = filtro['year'].iloc[0]
+        Year = filtro['release_year'].iloc[0]
         Popularity = filtro['popularity'].iloc[0]
         return (f'La pelicula {Titulo}, fue estrenada en el año {Year} y tiene un puntaje de {Popularity}')
     else:
