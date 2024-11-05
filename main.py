@@ -4,10 +4,6 @@ from urllib.parse import unquote
 
 app = FastAPI()
 
-#En local usamos la siguiente lectura de archivo:
-#movies_funcion = pd.read_parquet('../EV_PI01\movies_funcion.parquet')
-
-#En Render usamos la siguiente:
 movies_funcion = pd.read_parquet('movies_funcion.parquet')
 
 #Diccionario a usar en el Endpoint 1.
@@ -42,7 +38,7 @@ def cantidad_filmaciones_dia(Dia:str):
     return (f'En el dia {Dia} se hicieron {lanzamientos_por_dia} estrenos.')
 
 #Endpoint 3
-@app.get("/titulo/")
+@app.get("/titulo_para_estreno/")
 def score_titulo(titulo_de_la_filmacion: str):
     # Filtrar las filas que coinciden con el titulo
     titulo_de_la_filmacion = titulo_de_la_filmacion.lower()
@@ -53,13 +49,27 @@ def score_titulo(titulo_de_la_filmacion: str):
         Titulo = filtro['title'].iloc[0]
         Year = filtro['year'].iloc[0]
         Popularity = filtro['popularity'].iloc[0]
-        #return {"Titulo": Titulo, "Ano de lanzamiento": str(Year), 'Puntaje': str(Popularity)}
         return (f'La pelicula {Titulo}, fue estrenada en el año {Year} y tiene un puntaje de {Popularity}')
     else:
-        return ("error, no se encontro titulo")
+        return ("Error, no se encontro titulo")
 
 #Endpoint 4
+@app.get("/titulo_para_cuenta_votos/")
+def votos_titulo( titulo_de_la_filmacion ):
+    titulo_de_la_filmacion = titulo_de_la_filmacion.lower()
+    filtro = movies_funcion[movies_funcion['title'].str.lower() == titulo_de_la_filmacion]
 
+    # Verificar si el filtro no esta vacio
+    if not filtro.empty:
+        Titulo = filtro['title'].iloc[0]
+        Cant_votos = filtro['vote_count'].iloc[0]
+        Prom_votos = filtro['vote_average'].iloc[0]
+        if Cant_votos >= 2000:
+            return (f'La pelicula {Titulo}, cuenta con un total de {Cant_votos} valoraciones, con un promedio de {Prom_votos}')
+        else:
+            return (f'La pelicula {Titulo} no cumple con el minimo de 2000 valoraciones')
+    else:
+        return ("Error, no se encontro titulo")
 
 #Sistema de recomendacion
 @app.get("/titulo_recomendacion/")
@@ -82,4 +92,4 @@ def recomendacion( titulo: str ):
             lista.append(recomendacion)
         return (f'Recomendaciones: 1) {lista[0]}, 2) {lista[1]}, 3) {lista[2]}, 4) {lista[3]}, 5) {lista[4]}')
     else:
-        return ("error, no se encontro titulo")
+        return ("Error, no se encontro titulo")
