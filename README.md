@@ -16,6 +16,7 @@ TABLA DE CONTENIDOS
 
 - Descripcion
 - Documentos
+- Datos de interes
 
 DESCRIPCION
 
@@ -53,8 +54,15 @@ DOCUMENTOS
 En el repositorio vamos a encontrar los siguiente archivos:
 
 ETL_1 y ETL_2: Notebooks con el paso a paso de los procesos de ETL.
+
 EDA_Modelo_ML: Notebook con el paso a paso del analisis y creacion de los datos para el sistema de recomendacion.
+
 movies_funcion.parquet: Datos en formato parquet para el consumo de las funciones de consulta.
-movies_modelo_recortado.parquet y similitud_coseno_df.parquet: 
+
+movies_modelo_recortado.parquet y similitud_coseno_df.parquet: Datos en formato parquet para el consumo del sistema de recomendacion.
+
+main.py: Contiene las funciones para el deploy en la API.
+
+DATOS DE INTERES
 
 Datasets originales: https://drive.google.com/drive/folders/1X_LdCoGTHJDbD28_dJTxaD4fVuQC9Wt5
